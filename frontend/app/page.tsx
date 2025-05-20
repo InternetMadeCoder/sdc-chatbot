@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import { Bot, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 const ChatWindow = dynamic(() => import("@/components/ChatWindow"), {
   loading: () => <div>Loading...</div>,
@@ -18,23 +17,6 @@ const WelcomeAnimation = dynamic(() => import("@/components/WelcomeAnimation"), 
 export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
-  const [bgImage, setBgImage] = useState("/images/bg.png"); // Default to laptop image
-
-  useEffect(() => {
-    // Function to check screen width
-    const updateImage = () => {
-      if (window.innerWidth <= 768) {
-        setBgImage("/images/bgp.jpg"); // Set mobile image
-      } else {
-        setBgImage("/images/bg.png"); // Set laptop image
-      }
-    };
-
-    updateImage(); // Initial check
-    window.addEventListener("resize", updateImage); // Update on resize
-
-    return () => window.removeEventListener("resize", updateImage); // Cleanup
-  }, []);
 
   const handleChatOpen = () => {
     setIsChatOpen(true);
@@ -44,17 +26,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen">
-      {/* Background Image Container */}
-      <div className="absolute inset-0 w-screen h-screen overflow-hidden">
-        <Image
-          src={bgImage}
-          fill
-          alt="Background Image"
-          className="object-cover object-center"
-        />
-      </div>
-
+    <div className="relative min-h-screen bg-white">
       {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto p-8"></div>
 
